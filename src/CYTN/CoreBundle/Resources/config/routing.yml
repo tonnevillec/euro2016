@@ -1,0 +1,7 @@
+cytn_core_homepage:
+    path:     /
+    defaults: { _controller: CYTNCoreBundle:Default:index }
+
+cytn_core_addDeal:
+    path: /addDeal
+    defaults: { _controller: CYTNCoreBundle:Default:addDeal }

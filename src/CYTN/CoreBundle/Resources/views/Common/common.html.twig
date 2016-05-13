@@ -1,0 +1,63 @@
+{% extends "CYTNCoreBundle::layout.html.twig" %}
+
+{% block body_class %}common{% endblock %}
+
+{% block nav %}
+    <nav class="navbar navbar-fixed-top navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="{{ path('cytn_core_homepage') }}">UEFA EURO 2016</a>
+            </div>
+
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="{{ path('cytn_core_homepage') }}">Tableau de bord <span class="sr-only">(current)</span></a></li>
+                    {#
+                    <li class="dropdown">
+                        <a href="{{ path('cytn_core_homepage') }}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Matchs <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Groupe A</a></li>
+                            <li><a href="#">Groupe B</a></li>
+                            <li><a href="#">Groupe C</a></li>
+                            <li><a href="#">Groupe D</a></li>
+                            <li><a href="#">Groupe E</a></li>
+                            <li><a href="#">Groupe F</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#">1/8 Finales</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#">1/4 Finales</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#">1/2 Finales</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#">Petite finale</a></li>
+                            <li><a href="#">Finale</a></li>
+                        </ul>
+                    </li>
+                    #}
+                    <li><a href="#">Classement</a></li>
+                    <li><a href="#">Règlement</a></li>
+
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <li><a href="{{ path('cytn_admin_homepage') }}">Administration</a></li>
+                    {% endif %}
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="{{ path('fos_user_security_logout') }}">Logout</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ app.user.username }} <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Profile</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+{% endblock %}

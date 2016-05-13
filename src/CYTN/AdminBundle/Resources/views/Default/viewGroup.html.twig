@@ -1,0 +1,23 @@
+{% extends "CYTNAdminBundle::layout.html.twig" %}
+
+{% block body %}
+    <h1>Administration</h1>
+    <h2>Groupe</h2>
+
+    <div class="well">
+        <ul>
+            {% for group in groups %}
+                <li>
+                    <a href="#">
+                        {{ group.name }}
+                    </a>
+                    <ul>
+                    {% for list in listGroupTeams %}
+                        <li>{{ list.team.name }}</li>
+                    {% endfor %}
+                    </ul>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}

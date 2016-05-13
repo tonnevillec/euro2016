@@ -1,0 +1,279 @@
+{% extends "CYTNAdminBundle::layout.html.twig" %}
+
+{% block body %}
+        <h1>Administration</h1>
+        {% for label, flashes in app.session.flashbag.all %}
+            {% for flash in flashes %}
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <div class="alert alert-{{ label }} alert-labeled">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <div class="alert-labeled-row">
+                                                <span class="alert-label alert-label-left alert-labelled-cell">
+                                                    <i class="glyphicon glyphicon-floppy-saved"></i>
+                                                </span>
+                                <p class="alert-body alert-body-right alert-labelled-cell">
+                                    {{ flash }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% endfor %}
+
+        <div class="row">
+            <div class="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
+                <ul class="nav nav-tabs nav-justified">
+                    <li class="active"><a href="#matchs" data-toggle="tab">Matchs</a></li>
+                    <li><a href="#users" data-toggle="tab">Users</a></li>
+                    <li><a href="#teams" data-toggle="tab">Equipes</a></li>
+                    <li><a href="#groupes" data-toggle="tab">Groupes</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="tab-content">
+            <div class="tab-pane fade adminTable" id="users">
+                {% if users %}
+                    <div class="table-responsive">
+                        <table class="table table-hover table-condensed">
+                            <thead>
+                            <tr>
+                                <th>Nom</th>
+                                <th>Prenom</th>
+                                <th></th>  <!-- Actions column -->
+                            </tr>
+                            </thead>
+                            {% for user in users %}
+                                <tr>
+                                    <td><a class="userName" href="{{ path('cytn_admin_edituser', { 'id': user.id }) }}">{{ user.id }}</a></td>
+                                    <td>{{ user.username }}</td>
+                                    <td>
+                                        <a href="{{ path('cytn_admin_edituser', { 'id': user.id }) }}" class="btn btn-info btn-xs" title="Edit"><span class="glyphicon glyphicon-edit"></span></a>
+                                        <button type="button" class="btn btn-danger btn-xs" title="Delete" data-toggle="modal" data-target="#userDialog{{ user.id }}"><span class="glyphicon glyphicon-remove"></span>
+                                        </button>
+                                        <div class="modal fade" id="userDialog{{ user.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabelUser" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                        <h4 class="modal-title" id="myModalLabelUser">Confirmation needed</h4>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        Do you really want to delete this user ?
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                                        <a href="{{ path('cytn_core_homepage') }}" class="btn btn-danger">Confirm</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+                {% else %}
+                    <div class="alert alert-warning">No data found.</div>
+                {% endif %}
+                <a href="{{ path('cytn_admin_adduser') }}"><button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Add user</button></a>
+            </div>
+            <div class="tab-pane fade adminTable" id="teams">
+                {% if teams %}
+                    <div class="table-responsive">
+                        <table class="table table-hover table-condensed">
+                            <thead>
+                            <tr>
+                                <th>Nom</th>
+                                <th>Nom court</th>
+                                <th></th>  <!-- Actions column -->
+                            </tr>
+                            </thead>
+                            {% for team in teams %}
+                                <tr>
+                                    <td><a class="teamShortname" href="{{ path('cytn_admin_editteam', { 'id': team.id }) }}"><img src="{{ asset(team.flag.webPath) }}" alt="{{ team.flag.alt }}" class="smallFlag" /> {{ team.shortname }}</a></td>
+                                    <td>{{ team.name }}</td>
+                                    <td>
+                                        <a href="{{ path('cytn_admin_editteam', { 'id': team.id }) }}" class="btn btn-info btn-xs" title="Edit"><span class="glyphicon glyphicon-edit"></span></a>
+                                        <button type="button" class="btn btn-danger btn-xs" title="Delete" data-toggle="modal" data-target="#teamDialog{{ team.id }}"><span class="glyphicon glyphicon-remove"></span>
+                                        </button>
+                                        <div class="modal fade" id="teamDialog{{ team.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                        <h4 class="modal-title" id="myModalLabel">Confirmation needed</h4>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        Do you really want to delete this team ?
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                                        <a href="{{ path('cytn_core_homepage') }}" class="btn btn-danger">Confirm</a>
+                                                    </div>
+                                                </div><!-- /.modal-content -->
+                                            </div><!-- /.modal-dialog -->
+                                        </div><!-- /.modal -->
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+                {% else %}
+                    <div class="alert alert-warning">No data found.</div>
+                {% endif %}
+                <a href="{{ path('cytn_admin_addteam') }}"><button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Add team</button></a>
+            </div>
+            <div class="tab-pane fade adminTable" id="groupes">
+                {% if listGroupTeams %}
+                    <div class="table-responsive">
+                        <table class="table table-hover table-condensed">
+                            <thead>
+                            <tr>
+                                <th>Nom</th>
+                                <th>Equipes</th>
+                                <th></th>  <!-- Actions column -->
+                            </tr>
+                            </thead>
+                            {% for list in listGroupTeams %}
+                                <tr>
+                                    <td><a class="groupName" href="{{ path('cytn_admin_editgroup', { 'id': list.group.id }) }}">{{ list.group.name }}</a></td>
+                                    <td>{{ list.team.name }}</td>
+                                    <td>
+                                        <a href="{{ path('cytn_admin_editgroup', { 'id': list.group.id }) }}" class="btn btn-info btn-xs" title="Edit"><span class="glyphicon glyphicon-edit"></span></a>
+                                        <button type="button" class="btn btn-danger btn-xs" title="Delete" data-toggle="modal" data-target="#groupDialog{{ list.group.id }}"><span class="glyphicon glyphicon-remove"></span>
+                                        </button>
+                                        <div class="modal fade" id="groupDialog{{ list.group.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabelGroup" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                        <h4 class="modal-title" id="myModalLabelGroup">Confirmation needed</h4>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        Do you really want to delete this group ?
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                                        <a href="{{ path('cytn_core_homepage') }}" class="btn btn-danger">Confirm</a>
+                                                    </div>
+                                                </div><!-- /.modal-content -->
+                                            </div><!-- /.modal-dialog -->
+                                        </div><!-- /.modal -->
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+                {% else %}
+                    <div class="alert alert-warning">No data found.</div>
+                {% endif %}
+                <a href="{{ path('cytn_admin_addgroup') }}"><button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Add group</button></a>
+            </div>
+            <div class="tab-pane fade in active adminTable" id="matchs">
+                <div class="table-responsive">
+                    <table class="table table-hover table-condensed">
+                        <thead>
+                        <tr>
+                            <th>PHASE</th>
+                            <th>DATE</th>
+                            <th>EQUIPE DOM.</th>
+                            <th>RESULTATS</th>
+                            <th>EQUIPE EXT.</th>
+                            <th>ACTION</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for match in matchs %}
+                            <tr class="trGroupe groupe{{ match.groups.id }}">
+                                <td>{{ match.groups.name }}</td>
+                                <td>{{ match.startDate|date('d/m/Y') }} {{ match.startDate|date('H') }}h{{ match.startDate|date('i') }}</td>
+                                <td>
+                                    <img src="{{ asset(match.matchTeamIn.teams.flag.webPath) }}" alt="{{ match.matchTeamIn.teams.flag.alt }}" class="smallFlag" /> {{ match.matchTeamIn.teams.name }}
+                                </td>
+                                <td>
+                                    {{ match.matchTeamIn.score }} - {{ match.matchTeamOut.score }}
+                                </td>
+                                <td>
+                                    <img src="{{ asset(match.matchTeamOut.teams.flag.webPath) }}" alt="{{ match.matchTeamOut.teams.flag.alt }}" class="smallFlag" /> {{ match.matchTeamOut.teams.name }}
+                                </td>
+                                <td>
+                                    {% if match.isOpen %}
+                                        <button type="submit" class="btn btn-sm btn-success" data-toggle="modal" data-target="#matchValidation" data-action="{{ path('cytn_admin_matchResult', {'id': match.id}) }}" data-in="{{ match.matchTeamIn.id }}" data-inName="{{ match.matchTeamIn.teams.name }}" data-out="{{ match.matchTeamOut.id }}" data-outName="{{ match.matchTeamOut.teams.name }}">Résultat</button>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+
+                    <div class="modal fade" id="matchValidation" tabindex="-1" role="dialog" aria-labelledby="matchValidationLabel">
+                        <div class="modal-dialog" role="document">
+                            <form name="fMatchs" id="fMatchs" method="post" action="">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title" id="matchValidationLabel">Résultat du match</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered">
+                                            <thead>
+                                            <tr>
+                                                <th><span class="recipient-inName"></span></th>
+                                                <th><span class="recipient-outName"></span></th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr>
+                                                <td>
+                                                    <input type="hidden" name="teamInId" id="teamInId" value="">
+                                                    <input type="number" min="0" value="0" name="teamInScore" class="form-control">
+                                                </td>
+                                                <td>
+                                                    <input type="number" min="0" value="0" name="teamOutScore" class="form-control">
+                                                    <input type="hidden" name="teamOutId" id="teamOutId" value="">
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+                                    <button type="submit" class="btn btn-success">Valider</button>
+                                </div>
+                            </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+{% endblock %}
+
+{% block others_js %}
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#matchValidation').on('show.bs.modal', function (event) {
+                var button = $(event.relatedTarget);
+                var modal = $(this);
+                var action = button.data('action');
+
+                var teamInId = button.data('in');
+                var teamInName = button.data('inname');
+
+                var teamOutId = button.data('out');
+                var teamOutName = button.data('outname');
+
+                modal.find('.recipient-inName').html(teamInName);
+                modal.find('.recipient-outName').html(teamOutName);
+                modal.find('#teamInId').val(teamInId);
+                modal.find('#teamOutId').val(teamOutId);
+
+                modal.find('#fMatchs').attr({'action': action});
+            });
+        });
+    </script>
+{% endblock %}

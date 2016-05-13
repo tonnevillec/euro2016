@@ -1,0 +1,19 @@
+{% extends "FOSUserBundle::layout.html.twig" %}
+
+{% block body_class %}register{% endblock %}
+
+{% block body %}
+    {% for key, message in app.session.flashbag.all() %}
+        <div class="alert alert-{{ key }}">
+            {{ message|trans({}, 'FOSUserBundle') }}
+        </div>
+    {% endfor %}
+
+    {% block fos_user_content %}
+        {% include "CYTNUserBundle:Registration:register_content.html.twig" %}
+    {% endblock fos_user_content %}
+
+{% endblock %}
+
+{% block others_js %}
+{% endblock %}

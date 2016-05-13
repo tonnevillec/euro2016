@@ -1,0 +1,40 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="wrap">
+                <p class="form-title">Nouvel utilisateur</p>
+                <form name="_form" method="POST" class="login fos_user_registration_register" action="{{ path('fos_user_registration_register') }}">
+                    <div id="fos_user_registration_form">
+                        <div>
+                            <label for="fos_user_registration_form_email" class="required">Adresse mail</label>
+                            <input type="email" id="fos_user_registration_form_email" name="fos_user_registration_form[email]" required="required">
+                        </div>
+                        <div>
+                            <label for="fos_user_registration_form_username" class="required">Login</label>
+                            <input type="text" id="fos_user_registration_form_username" name="fos_user_registration_form[username]" required="required" maxlength="255" pattern=".{2,}">
+                        </div>
+                        <div>
+                            <label for="fos_user_registration_form_plainPassword_first" class="required">Mot de passe</label>
+                            <input type="password" id="fos_user_registration_form_plainPassword_first" name="fos_user_registration_form[plainPassword][first]" required="required">
+                        </div>
+                        <div>
+                            <label for="fos_user_registration_form_plainPassword_second" class="required">Confirmer le mot de passe</label>
+                            <input type="password" id="fos_user_registration_form_plainPassword_second" name="fos_user_registration_form[plainPassword][second]" required="required">
+                        </div>
+                        {{ form_row(form._token) }}
+                    </div>
+
+                    <input type="submit" id="_submit" name="_submit" class="btn btn-success btn-sm" value="S'enregistrer">
+
+                    <div class="remember-forgot">
+                        <div class="row">
+                            <div class="col-md-6 forgot-pass-content">
+                                <a href="{{ path('fos_user_security_login') }}">Annuler</a>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

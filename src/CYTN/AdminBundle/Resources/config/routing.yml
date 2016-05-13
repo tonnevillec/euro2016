@@ -1,0 +1,43 @@
+cytn_admin_homepage:
+    path:     /admin
+    defaults: { _controller: CYTNAdminBundle:Default:index }
+
+cytn_admin_adduser:
+    path: /admin/addUser
+    defaults: { _controller: CYTNAdminBundle:User:addUser }
+
+cytn_admin_viewuser:
+    path: /admin/viewUser
+    defaults: { _controller: CYTNAdminBundle:User:viewUser }
+
+cytn_admin_edituser:
+    path: /admin/editUser/{id}
+    defaults: { _controller: CYTNAdminBundle:User:editUser }
+
+cytn_admin_addteam:
+    path: /admin/addTeam
+    defaults: { _controller: CYTNAdminBundle:Default:addTeam }
+
+cytn_admin_viewteam:
+    path: /admin/viewTeam
+    defaults: { _controller: CYTNAdminBundle:Default:viewTeam }
+
+cytn_admin_editteam:
+    path: /admin/editTeam/{id}
+    defaults: { _controller: CYTNAdminBundle:Default:editTeam }
+
+cytn_admin_addgroup:
+    path: /admin/addGroup
+    defaults: { _controller: CYTNAdminBundle:Default:addGroup }
+
+cytn_admin_viewgroup:
+    path: /admin/viewGroup
+    defaults: { _controller: CYTNAdminBundle:Default:viewGroup }
+
+cytn_admin_editgroup:
+    path: /admin/editGroup/{id}
+    defaults: { _controller: CYTNAdminBundle:Default:editGroup }
+
+cytn_admin_matchResult:
+    path: /admin/addMatchResult/{id}
+    defaults: { _controller: CYTNAdminBundle:Result:addMatchResult }

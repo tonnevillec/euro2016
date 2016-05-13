@@ -1,0 +1,7 @@
+services:
+#    cytn_core.example:
+#        class: CYTN\CoreBundle\Example
+#        arguments: [@service_id, "plain_value", %parameter%]
+    cytn_bdd.requests:
+        class: CYTN\CoreBundle\Services\BddRequests
+        arguments: ["@doctrine.orm.entity_manager"]
