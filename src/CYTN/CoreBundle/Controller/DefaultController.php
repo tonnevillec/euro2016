@@ -35,7 +35,8 @@ class DefaultController extends Controller
             ->getRepository('CYTNCoreBundle:Groups')
             ->findBy(
                 array('round'   => 'GROUPE'),
-                array('name'    => 'asc'),
+                array('name'    => 'asc'
+                ),
                 null,
                 null
             );
@@ -45,7 +46,15 @@ class DefaultController extends Controller
             ->getRepository('CYTNCoreBundle:GroupTeam')
             ->findBy(
                 array('group' => $groups),
-                array('id' => 'asc', 'point' => 'desc'),
+                array(
+                    'group'         => 'asc',
+                    'point'         => 'desc',
+                    'win'           => 'desc',
+                    'draw'          => 'desc',
+                    'goalfor'       => 'desc',
+                    'goalagainst'   => 'asc',
+                    'team'          => 'asc'
+                ),
                 null,
                 null
             );

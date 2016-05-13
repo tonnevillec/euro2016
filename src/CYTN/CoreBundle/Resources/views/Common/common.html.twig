@@ -49,15 +49,60 @@
                 </ul>
 
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="{{ path('fos_user_security_logout') }}">Logout</a></li>
+                    <li>
+                        <a href="{{ path('cytn_core_homepage') }}" class="clock">
+
+                            <ul id="myClock">
+                                <li id="Date"></li>
+                                <li class="separator"></li>
+                                <li id="hours">00</li>
+                                <li class="point">:</li>
+                                <li id="min">00</li>
+                                <li class="point">:</li>
+                                <li id="sec">00</li>
+                            </ul>
+                        </a>
+                    </li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ app.user.username }} <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="#">Profile</a></li>
+                            <li><a href="#"><i class="glyphicon glyphicon-user"></i> Profile</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="{{ path('fos_user_security_logout') }}"><i class="glyphicon glyphicon-log-out"></i> Logout</a></li>
                         </ul>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
+{% endblock %}
+
+{% block others_js %}
+    {{ parent() }}
+<script type="text/javascript">
+    $(document).ready(function() {
+        var monthNames = [ "Janv.", "Fév.", "Mars", "Avr.", "Mai", "Juin", "Juil.", "Aout", "Sept.", "Oct.", "Nov.", "Déc." ];
+        var dayNames= ["Dim.","Lun.","Mar.","Mer.","Jeu.","Ven.","Sam."];
+
+        var newDate = new Date();
+        newDate.setDate(newDate.getDate());
+        $('#Date').html(dayNames[newDate.getDay()] + " " + newDate.getDate() + ' ' + monthNames[newDate.getMonth()] + ' ' + newDate.getFullYear());
+
+        setInterval( function() {
+            var seconds = new Date().getSeconds();
+            $("#sec").html(( seconds < 10 ? "0" : "" ) + seconds);
+        },1000);
+
+        setInterval( function() {
+            var minutes = new Date().getMinutes();
+            $("#min").html(( minutes < 10 ? "0" : "" ) + minutes);
+        },1000);
+
+        setInterval( function() {
+            var hours = new Date().getHours();
+            $("#hours").html(( hours < 10 ? "0" : "" ) + hours);
+        }, 1000);
+    });
+</script>
+
 {% endblock %}

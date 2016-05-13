@@ -279,3 +279,36 @@ img.xsFlag{
     height: 100%;
     font-size:1.1em;
 }
+
+.clock {
+    /* width: 800px; */
+    margin: 0 auto;
+    /* padding: 30px; */
+    border: none;
+    /* color: #fff; */
+}
+
+#Date {
+    font-size: 1em;
+    text-align: center;
+}
+
+ul#myClock {
+    /* width: 800px; */
+    margin: 0 auto;
+    padding: 0px;
+    list-style: none;
+    text-align: center;
+}
+
+ul#myClock li {
+    display: inline;
+    font-size: 1em;
+    text-align: center;
+}
+
+li.point {
+    position: relative;
+    padding-left: 1px;
+    padding-right: 1px;
+}

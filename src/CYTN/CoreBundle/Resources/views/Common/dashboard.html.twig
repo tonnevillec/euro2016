@@ -66,9 +66,9 @@
                                         <img src="{{ asset(match.matchTeamIn.teams.flag.webPath) }}" alt="{{ match.matchTeamIn.teams.flag.alt }}" class="smallFlag" /> {{ match.matchTeamIn.teams.name }}
                                     </td>
                                     <td>
-                                        <input type="number" min="0" class="input-sm input-score" name="inScore{{ match.id }}" id="inScore{{ match.id }}" value="{{ bdd_requests.findScoreInDeal(match.id, app.user) }}" {% if "now"|date('YmdHi')  > match.startDate|date('YmdHi') %}disabled="disabled"{% endif %} />
+                                        <input type="number" min="0" class="input-sm input-score" name="inScore{{ match.id }}" id="inScore{{ match.id }}" value="{{ bdd_requests.findScoreInDeal(match.id, app.user) }}" {% if "now"|date('YmdHi') >= match.startDate|date('YmdHi') %}disabled="disabled"{% endif %} />
                                         -
-                                        <input type="number" min="0" class="input-sm input-score" name="outScore{{ match.id }}" id="outScore{{ match.id }}" value="{{ bdd_requests.findScoreOutDeal(match.id, app.user) }}" {% if "now"|date('YmdHi')  > match.startDate|date('YmdHi') %}disabled="disabled"{% endif %} />
+                                        <input type="number" min="0" class="input-sm input-score" name="outScore{{ match.id }}" id="outScore{{ match.id }}" value="{{ bdd_requests.findScoreOutDeal(match.id, app.user) }}" {% if "now"|date('YmdHi') >= match.startDate|date('YmdHi') %}disabled="disabled"{% endif %} />
                                     </td>
                                     <td>
                                         <img src="{{ asset(match.matchTeamOut.teams.flag.webPath) }}" alt="{{ match.matchTeamOut.teams.flag.alt }}" class="smallFlag" /> {{ match.matchTeamOut.teams.name }}
@@ -88,6 +88,7 @@
 
             <div class="col-md-3" id="sideClassment">
                 {% set groupe = '' %}
+                {% set pos = 1 %}
                 {% for grp in classify %}
                     {% if groupe == '' %}
                         {% set groupe = grp.group.name %}
@@ -98,18 +99,19 @@
                     <table class="table table-condensed">
                         <thead>
                         <tr>
-                            <th></th>
+                            <th>Equipe</th>
                             <th>Pts</th>
-                            <th>MJ</th>
                             <th>G</th>
-                            <th>D</th>
                             <th>N</th>
+                            <th>D</th>
+                            <th>+/-</th>
                         </tr>
                         </thead>
                         <tbody>
                     {% endif %}
                     {% if grp.group.name != groupe %}
                         {% set groupe = grp.group.name %}
+                        {% set pos = 1 %}
                         </tbody>
                     </table>
                 </div>
@@ -121,24 +123,25 @@
                     <table class="table table-condensed">
                         <thead>
                         <tr>
-                            <th></th>
+                            <th>Equipe</th>
                             <th>Pts</th>
-                            <th>MJ</th>
                             <th>G</th>
-                            <th>D</th>
                             <th>N</th>
+                            <th>D</th>
+                            <th>+/-</th>
                         </tr>
                         </thead>
                         <tbody>
                     {% endif %}
-                            <tr class="success">
+                            <tr class="{% if pos <= 2 %}success{% else %}danger{% endif %}">
                                 <td><img src="{{ asset(grp.team.flag.webPath) }}" alt="{{ grp.team.flag.alt }}" class="xsFlag" /> {{ grp.team.name }}</td>
                                 <td>{{ grp.point }}</td>
-                                <td>{{ grp.win + grp.lose + grp.draw }}</td>
                                 <td>{{ grp.win }}</td>
-                                <td>{{ grp.lose }}</td>
                                 <td>{{ grp.draw }}</td>
+                                <td>{{ grp.lose }}</td>
+                                <td>{{ grp.goalfor - grp.goalagainst }}</td>
                             </tr>
+                    {% set pos = pos + 1 %}
                 {% endfor %}
                         </tbody>
                     </table>
@@ -149,6 +152,7 @@
 {% endblock %}
 
 {% block others_js %}
+    {{ parent() }}
     <script type="text/javascript">
         $(document).ready(function(){
             $(".btnGroupe").on('click', function(){
