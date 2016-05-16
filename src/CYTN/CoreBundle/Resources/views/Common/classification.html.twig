@@ -1,0 +1,56 @@
+{% extends "CYTNCoreBundle:Common:common.html.twig" %}
+
+{% block body %}
+<div class="container-fluid">
+    <h2 class="text-center">Classement des joueurs</h2>
+    <div class="row">
+        <div class="col-md-offset-2 col-md-8">
+            <table id="tClassification" class="table table-hover table-condensed">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Joueur</th>
+                    <th>Points</th>
+                </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <td colspan="3">
+                        </td>
+                    </tr>
+                </tfoot>
+                <tbody>
+                {% set pos = 1 %}
+                {% for c in classification %}
+                    <tr>
+                        <td>{{ pos }}</td>
+                        <td>{{ c.username }}</td>
+                        <td>{{ c.pts }}</td>
+                    </tr>
+                    {% set pos = pos + 1 %}
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block others_js %}
+    {{ parent() }}
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("#menuDashboard").removeClass('active');
+            $("#menuClassement").addClass('active');
+            $("#menuReglement").removeClass('active');
+
+            $('#tClassification').DataTable( {
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/French.json"
+                },
+                "order": [[ 2, "desc" ]],
+                "lengthMenu": [[25, 50, 75, -1], [25, 50, 75, "Tous"]]
+            } );
+        } );
+    </script>
+{% endblock %}

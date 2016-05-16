@@ -8,9 +8,7 @@
     <title>Cytn - EURO 2016{% block title %}{% endblock %}</title>
 
     {% stylesheets filter='cssrewrite'
-        'bundles/cytncore/css/bootstrap.min.css'
-        'bundles/cytncore/css/bootstrap-theme.min.css'
-        'bundles/cytncore/css/main.css' %}
+        'bundles/cytncore/css/*' %}
         <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
     {% endstylesheets %}
 
@@ -29,9 +27,16 @@
     </div>
 
     {% javascripts
-        '@CYTNCoreBundle/Resources/public/js/jquery-1.12.2.min.js'
-        '@CYTNCoreBundle/Resources/public/js/bootstrap.min.js' %}
+        '@CYTNCoreBundle/Resources/public/js/*' %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("#menuDashboard").addClass('active');
+            $("#menuClassement").removeClass('active');
+            $("#menuReglement").removeClass('active');
+        });
+    </script>
     {% endjavascripts %}
 
     {% block others_js %}

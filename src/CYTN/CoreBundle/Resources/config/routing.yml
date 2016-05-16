@@ -5,3 +5,7 @@ cytn_core_homepage:
 cytn_core_addDeal:
     path: /addDeal
     defaults: { _controller: CYTNCoreBundle:Default:addDeal }
+
+cytn_core_classification:
+    path:     /classement
+    defaults: { _controller: CYTNCoreBundle:Default:classification }

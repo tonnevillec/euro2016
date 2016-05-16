@@ -17,7 +17,7 @@
 
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="{{ path('cytn_core_homepage') }}">Tableau de bord <span class="sr-only">(current)</span></a></li>
+                    <li class="active" id="menuDashboard"><a href="{{ path('cytn_core_homepage') }}">Tableau de bord <span class="sr-only">(current)</span></a></li>
                     {#
                     <li class="dropdown">
                         <a href="{{ path('cytn_core_homepage') }}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Matchs <span class="caret"></span></a>
@@ -40,8 +40,8 @@
                         </ul>
                     </li>
                     #}
-                    <li><a href="#">Classement</a></li>
-                    <li><a href="#">Règlement</a></li>
+                    <li id="menuClassement"><a href="{{ path('cytn_core_classification') }}">Classement</a></li>
+                    <li id="menuReglement"><a href="#">Règlement</a></li>
 
                     {% if is_granted('ROLE_ADMIN') %}
                         <li><a href="{{ path('cytn_admin_homepage') }}">Administration</a></li>
