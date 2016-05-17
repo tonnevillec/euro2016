@@ -112,4 +112,30 @@ class DefaultController extends Controller
         return $this->redirectToRoute('cytn_core_homepage');
     }
 
+    public function classificationAction()
+    {
+/*
+        $classification = $this
+            ->getDoctrine()
+            ->getManager()
+            ->getRepository('CYTNCoreBundle:Deals')
+            ->getClassification();
+*/
+        $users = $this->getDoctrine()
+            ->getManager()
+            ->getRepository('CYTNUserBundle:User')
+            ->findAll()
+        ;
+        $classification = Array();
+        foreach($users as $user){
+            $classification[] = array(
+                'username'=>$user->getUsername(),
+                'pts' => $this->getDoctrine()->getManager()->getRepository('CYTNCoreBundle:Deals')->getUserPts($user->getId())
+            );
+        }
+        sort($classification, 1);
+        return $this->render('CYTNCoreBundle:Common:classification.html.twig', array(
+            'classification'    => $classification
+        ));
+    }
 }

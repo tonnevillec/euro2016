@@ -9,7 +9,7 @@ use CYTN\UserBundle;
  * Deals
  *
  * @ORM\Table()
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="CYTN\CoreBundle\Entity\DealsRepository")
  */
 class Deals
 {

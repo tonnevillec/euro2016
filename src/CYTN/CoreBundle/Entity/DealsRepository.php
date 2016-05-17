@@ -13,5 +13,17 @@ use Doctrine\ORM\QueryBuilder;
  */
 class DealsRepository extends EntityRepository
 {
+    public function getUserPts($userId)
+    {
+        $qb = $this->createQueryBuilder('d')
+            ->addSelect('SUM(d.points) as pts')
+            ->where('d.user = :id')
+            ->setParameter('id', $userId)
+            ->groupBy('d.user')
+            //->orderBy('SUM(d.points)', 'desc')
+        ;
+        $resultat = $qb->getQuery()->getResult();
 
+        return is_null($resultat[0]['pts']) ? 0 : $resultat[0]['pts'];
+    }
 }

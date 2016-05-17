@@ -101,4 +101,9 @@ class BddRequests{
 
         $this->_em->flush();
     }
+
+    public function getPtsForUser($userId)
+    {
+        return $this->_em->getRepository('CYTNCoreBundle:Deals')->getUserPts($userId);
+    }
 }
